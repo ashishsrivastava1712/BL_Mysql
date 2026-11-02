@@ -20,6 +20,7 @@ database unless the script itself creates/selects it.
 | 10 | `UC10_count_by_addressbook_type.sql` | Count contacts by AddressBook type. |
 | 11 | `UC11_contact_addressbook_many_to_many.sql` | Create the many-to-many membership table. |
 | 12 | [ER diagram and normalization](../er-diagram/README.md) | Documentation only (no SQL script). |
+| 13 | `UC13_verify_final_queries.sql` | Verify UC6, UC7, UC8, and UC10 on the final schema. |
 
 ---
 
@@ -320,3 +321,33 @@ No database change is required. The review documents:
   by `ContactAddressBook`.
 - Primary keys, foreign keys, relationship cardinalities, and cascade rules.
 - The final schema image and Mermaid source.
+
+---
+
+## UC13 - Verify Queries with the New Table Structure
+
+**Script:** `UC13_verify_final_queries.sql`
+
+Re-runs the UC6, UC7, and UC8 retrieval reports against `Contacts`. They remain
+valid because those use cases only read contact attributes. UC10 is rewritten
+to JOIN `AddressBook` with `ContactAddressBook` instead of the removed
+`Contacts.AddressBookID` column.
+
+### Expected Result
+
+- The schema contains `Contacts`, `AddressBook`, and `ContactAddressBook`.
+- `OldContactColumnPresent` is `0`.
+- UC6 returns Pune (2), Maharashtra (3), and no Chennai rows.
+- UC7 returns 11 total contacts, with Bengaluru and Pune at 2 each.
+- UC8 returns Pune and Bengaluru sorted by `FirstName`, then `LastName`.
+- UC10 returns Family 4, Friends 5, Professional 3.
+- Aarav Sharma is the only contact with more than one address book (`2`).
+- `TotalMemberships` is `12`; `DistinctContacts` is `11`.
+- `ContactRows` equals `DistinctContactIDs` (`11`), proving that contacts were
+  not duplicated to support multiple memberships.
+
+### Clean Rebuild Test
+
+All scripts UC1 through UC11 plus UC13 were executed in order against a freshly
+dropped database. Every script returned exit code `0`, and the final state
+matched all expected counts above.
