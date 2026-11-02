@@ -15,6 +15,7 @@ database unless the script itself creates/selects it.
 | 5 | `UC5_delete_contact.sql` | Delete a contact by name. |
 | 6 | `UC6_retrieve_by_city_state.sql` | Retrieve contacts by city or state. |
 | 7 | `UC7_count_by_city_state.sql` | Count contacts by city and state. |
+| 8 | `UC8_sort_by_name.sql` | Sort a city's contacts by name. |
 
 ---
 
@@ -189,3 +190,21 @@ proving that the city counts add up to the total.
 - Maharashtra has `3` contacts and Karnataka has `2`.
 - The `HAVING COUNT(*) > 1` query returns Bengaluru and Pune.
 - `SumOfCityCounts` equals `11`.
+
+---
+
+## UC8 - Sort Contacts Alphabetically
+
+**Script:** `UC8_sort_by_name.sql`
+
+Retrieves contacts for a selected city and sorts them with
+`ORDER BY FirstName ASC, LastName ASC`.
+
+### Expected Result
+
+- Pune returns Aarav Sharma, then Meera Joshi.
+- Bengaluru returns Kavya Nair, then Saanvi Reddy.
+- Mumbai returns Rohan Mehta.
+- Chennai returns no rows.
+- In every result, first names are in ascending order, with last name used as a
+  tie-breaker.
