@@ -12,6 +12,7 @@ database unless the script itself creates/selects it.
 | 2 | `UC2_create_contacts_table.sql` | Create the `Contacts` table. |
 | 3 | `UC3_insert_contacts.sql` | Insert twelve sample contacts. |
 | 4 | `UC4_update_contact.sql` | Edit a contact by name. |
+| 5 | `UC5_delete_contact.sql` | Delete a contact by name. |
 
 ---
 
@@ -128,3 +129,22 @@ before and after the change.
 - The missing-contact test returns `MissingContactRowsUpdated = 0`, which is the
   SQL signal that no matching person exists.
 - `TotalContacts` remains `12` and `EditedContactCount` is `1`.
+
+---
+
+## UC5 - Delete Contact
+
+**Script:** `UC5_delete_contact.sql`
+
+Deletes Ananya Iyer by first and last name and verifies the deletion. An
+unrelated contact (Kavya Nair) is checked to confirm that only the target row is
+removed. The final dataset contains eleven contacts after this script.
+
+### Expected Result
+
+- The "before" query displays Ananya Iyer from Chennai.
+- `RowsDeleted` is `1`.
+- `RemainingContacts` is `11`.
+- `UnrelatedContactStillPresent` is `1`.
+- `DeletedContactStillPresent` is `0`.
+- Deleting a missing person returns `MissingContactRowsDeleted = 0`.
