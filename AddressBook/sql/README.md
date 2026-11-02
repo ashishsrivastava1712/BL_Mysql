@@ -18,6 +18,7 @@ database unless the script itself creates/selects it.
 | 8 | `UC8_sort_by_name.sql` | Sort a city's contacts by name. |
 | 9 | `UC9_add_addressbook_name_type.sql` | Add AddressBook name/type and link contacts. |
 | 10 | `UC10_count_by_addressbook_type.sql` | Count contacts by AddressBook type. |
+| 11 | `UC11_contact_addressbook_many_to_many.sql` | Create the many-to-many membership table. |
 
 ---
 
@@ -268,3 +269,36 @@ type. `LEFT JOIN` keeps address books that have no contacts in the result.
 - `SumOfTypeCounts` is `11`.
 - The query uses the UC9 `Contacts.AddressBookID` column. The final many-to-many
   version of this report is provided in UC13.
+
+---
+
+## UC11 - Add One Person to Multiple AddressBooks
+
+**Script:** `UC11_contact_addressbook_many_to_many.sql`
+
+Creates the `ContactAddressBook` junction table, copies the existing UC9
+assignments into it, removes the temporary `Contacts.AddressBookID` column, and
+adds Aarav Sharma to both the Family and Friends address books.
+
+### Junction Table
+
+| Column | Type | Notes |
+| --- | --- | --- |
+| `ContactID` | `INT UNSIGNED` | Foreign key to `Contacts`, part of composite PK |
+| `AddressBookID` | `INT UNSIGNED` | Foreign key to `AddressBook`, part of composite PK |
+| `AddedAt` | `TIMESTAMP` | Membership creation time |
+
+- Composite primary key: `(ContactID, AddressBookID)`.
+- Foreign keys use `ON DELETE CASCADE` and `ON UPDATE CASCADE`.
+- A contact is stored once in `Contacts` and may have many memberships.
+
+### Expected Result
+
+- `ContactAddressBook` exists with the composite primary key and two foreign
+  keys.
+- `ContactRows` for Aarav Sharma is `1`.
+- Aarav's membership query returns both Family Book and Friends Book.
+- `TotalMemberships` is `12`, while `DistinctContacts` is `11`.
+- `OldColumnStillPresent` is `0`.
+- Re-inserting the same `(ContactID, AddressBookID)` pair fails with error
+  `1062` and does not create a duplicate.
