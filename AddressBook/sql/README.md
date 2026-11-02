@@ -11,6 +11,7 @@ database unless the script itself creates/selects it.
 | 1 | `UC1_create_database.sql` | Create the `AddressBookService` database. |
 | 2 | `UC2_create_contacts_table.sql` | Create the `Contacts` table. |
 | 3 | `UC3_insert_contacts.sql` | Insert twelve sample contacts. |
+| 4 | `UC4_update_contact.sql` | Edit a contact by name. |
 
 ---
 
@@ -107,3 +108,23 @@ silently accepted.
 - Re-running the script leaves the count at `12`.
 - An insert with an invalid ZIP, phone, or email fails with error `3819` and does
   not add a row.
+
+---
+
+## UC4 - Edit Existing Contact
+
+**Script:** `UC4_update_contact.sql`
+
+Updates Vivaan Gupta by first and last name. The update changes address, city,
+state, ZIP, phone, and email inside a transaction. The script prints the record
+before and after the change.
+
+### Expected Result
+
+- The "before" query shows the New Delhi address.
+- `RowsUpdated` is `1`.
+- The "after" query shows Gurugram, Haryana, `122002`, the new phone, and
+  `vivaan.gupta@newmail.com`.
+- The missing-contact test returns `MissingContactRowsUpdated = 0`, which is the
+  SQL signal that no matching person exists.
+- `TotalContacts` remains `12` and `EditedContactCount` is `1`.
