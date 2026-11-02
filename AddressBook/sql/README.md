@@ -14,6 +14,7 @@ database unless the script itself creates/selects it.
 | 4 | `UC4_update_contact.sql` | Edit a contact by name. |
 | 5 | `UC5_delete_contact.sql` | Delete a contact by name. |
 | 6 | `UC6_retrieve_by_city_state.sql` | Retrieve contacts by city or state. |
+| 7 | `UC7_count_by_city_state.sql` | Count contacts by city and state. |
 
 ---
 
@@ -170,3 +171,21 @@ and state values are stored in session variables so they are easy to change.
 | State | Karnataka | Kavya Nair, Saanvi Reddy |
 | State | Delhi | None (Vivaan Gupta moved in UC4) |
 | State | Haryana | Vivaan Gupta |
+
+---
+
+## UC7 - Count Contacts by City and State
+
+**Script:** `UC7_count_by_city_state.sql`
+
+Uses `COUNT(*)` with `GROUP BY` to report the size of the address book per city
+and per state. It also includes a `HAVING` example and a reconciliation query
+proving that the city counts add up to the total.
+
+### Expected Result
+
+- `TotalContacts` is `11`.
+- Bengaluru and Pune each have `2` contacts; the other cities have `1`.
+- Maharashtra has `3` contacts and Karnataka has `2`.
+- The `HAVING COUNT(*) > 1` query returns Bengaluru and Pune.
+- `SumOfCityCounts` equals `11`.
