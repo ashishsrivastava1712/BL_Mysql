@@ -16,6 +16,7 @@ database unless the script itself creates/selects it.
 | 6 | `UC6_retrieve_by_city_state.sql` | Retrieve contacts by city or state. |
 | 7 | `UC7_count_by_city_state.sql` | Count contacts by city and state. |
 | 8 | `UC8_sort_by_name.sql` | Sort a city's contacts by name. |
+| 9 | `UC9_add_addressbook_name_type.sql` | Add AddressBook name/type and link contacts. |
 
 ---
 
@@ -208,3 +209,40 @@ Retrieves contacts for a selected city and sorts them with
 - Chennai returns no rows.
 - In every result, first names are in ascending order, with last name used as a
   tie-breaker.
+
+---
+
+## UC9 - Add AddressBook Name and Type
+
+**Script:** `UC9_add_addressbook_name_type.sql`
+
+Creates the `AddressBook` table and links contacts to an address book through a
+nullable `Contacts.AddressBookID` foreign key.
+
+### AddressBook Table
+
+| Column | Type | Notes |
+| --- | --- | --- |
+| `AddressBookID` | `INT UNSIGNED` | Primary key, auto-increment |
+| `AddressBookName` | `VARCHAR(100)` | Not null, unique with type |
+| `AddressBookType` | `ENUM` | `Family`, `Friends`, `Professional` |
+| `Description` | `VARCHAR(255)` | Optional |
+| `CreatedAt` | `TIMESTAMP` | Defaults to current time |
+
+### Initial Assignment
+
+| Type | Contacts |
+| --- | --- |
+| Family | Aarav Sharma, Diya Patel, Kavya Nair, Meera Joshi |
+| Friends | Ishaan Verma, Rohan Mehta, Arjun Rao, Nisha Kapoor |
+| Professional | Vivaan Gupta, Saanvi Reddy, Aditya Singh |
+
+This is a temporary one-to-many design (`AddressBook 1 -> * Contacts`). UC11
+replaces it with a many-to-many junction table.
+
+### Expected Result
+
+- Three address books exist.
+- `Contacts.AddressBookID` exists with a foreign key to `AddressBook`.
+- All eleven contacts are assigned exactly once.
+- `UnassignedContacts` is `0`.
