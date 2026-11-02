@@ -52,7 +52,7 @@ mysql -u root -p < sql/UC1_create_database.sql
 | UC7 - Count by city/state | `feature/UC7` | Complete |
 | UC8 - Sort by name | `feature/UC8` | Complete |
 | UC9 - AddressBook name and type | `feature/UC9` | Complete |
-| UC10 - Count by AddressBook type | `feature/UC10` | Pending |
+| UC10 - Count by AddressBook type | `feature/UC10` | Complete |
 | UC11 - Many-to-many membership | `feature/UC11` | Pending |
 | UC12 - Normalization and ER diagram | `feature/UC12` | Pending |
 | UC13 - Verify queries on final schema | `feature/UC13` | Pending |
@@ -72,3 +72,4 @@ Tests are executed against MySQL 8.0 before a use case is merged into `develop`.
 | UC7 | Ran `UC7_count_by_city_state.sql`. Verified total 11, city counts summing to 11, state counts, and the `HAVING` result (Bengaluru and Pune). | Pass |
 | UC8 | Ran `UC8_sort_by_name.sql`. Verified alphabetical output for Pune, Bengaluru, and Mumbai, plus an empty result for Chennai. | Pass |
 | UC9 | Ran `UC9_add_addressbook_name_type.sql`. Verified the AddressBook table, three address book types, the new foreign key, all eleven assignments, and zero unassigned contacts. | Pass |
+| UC10 | Ran `UC10_count_by_addressbook_type.sql`. Verified Family 4, Friends 4, Professional 3, and a type-count sum of 11. | Pass |
