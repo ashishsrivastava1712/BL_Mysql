@@ -10,6 +10,7 @@ database unless the script itself creates/selects it.
 | --- | --- | --- |
 | 1 | `UC1_create_database.sql` | Create the `AddressBookService` database. |
 | 2 | `UC2_create_contacts_table.sql` | Create the `Contacts` table. |
+| 3 | `UC3_insert_contacts.sql` | Insert twelve sample contacts. |
 
 ---
 
@@ -70,3 +71,39 @@ email, and `CHECK` constraints for ZIP, phone, and email formats.
 - `SHOW CREATE TABLE Contacts` shows the primary key, unique keys, and check
   constraints.
 - Invalid ZIP, phone, or email values are rejected with error `3819`.
+
+---
+
+## UC3 - Insert New Contacts
+
+**Script:** `UC3_insert_contacts.sql`
+
+Inserts twelve sample contacts across ten cities and nine states. The script uses
+`ON DUPLICATE KEY UPDATE` so a second execution does not create duplicates.
+Invalid data is rejected by the UC2 `CHECK` constraints instead of being
+silently accepted.
+
+### Sample Data
+
+| Name | City | State |
+| --- | --- | --- |
+| Aarav Sharma | Pune | Maharashtra |
+| Diya Patel | Ahmedabad | Gujarat |
+| Vivaan Gupta | New Delhi | Delhi |
+| Ananya Iyer | Chennai | Tamil Nadu |
+| Ishaan Verma | Kolkata | West Bengal |
+| Kavya Nair | Bengaluru | Karnataka |
+| Rohan Mehta | Mumbai | Maharashtra |
+| Meera Joshi | Pune | Maharashtra |
+| Arjun Rao | Hyderabad | Telangana |
+| Saanvi Reddy | Bengaluru | Karnataka |
+| Aditya Singh | Jaipur | Rajasthan |
+| Nisha Kapoor | Noida | Uttar Pradesh |
+
+### Expected Result
+
+- `TotalContacts` is `12`.
+- Twelve rows are listed in `ContactID` order.
+- Re-running the script leaves the count at `12`.
+- An insert with an invalid ZIP, phone, or email fails with error `3819` and does
+  not add a row.

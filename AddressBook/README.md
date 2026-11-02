@@ -45,7 +45,7 @@ mysql -u root -p < sql/UC1_create_database.sql
 | --- | --- | --- |
 | UC1 - Create AddressBook database | `feature/UC1` | Complete |
 | UC2 - Create Contacts table | `feature/UC2` | Complete |
-| UC3 - Insert contacts | `feature/UC3` | Pending |
+| UC3 - Insert contacts | `feature/UC3` | Complete |
 | UC4 - Edit contact | `feature/UC4` | Pending |
 | UC5 - Delete contact | `feature/UC5` | Pending |
 | UC6 - Retrieve by city/state | `feature/UC6` | Pending |
@@ -65,3 +65,4 @@ Tests are executed against MySQL 8.0 before a use case is merged into `develop`.
 | --- | --- | --- |
 | UC1 | Ran `UC1_create_database.sql` on a clean MySQL 8.0 instance. Verified `DATABASE()`, `information_schema.SCHEMATA`, and `SHOW DATABASES LIKE 'AddressBookService'`. | Pass |
 | UC2 | Ran `UC2_create_contacts_table.sql`. Verified table, columns, keys, and constraints with `SHOW CREATE TABLE`. Tested invalid ZIP, phone, and email values; each was rejected. | Pass |
+| UC3 | Ran `UC3_insert_contacts.sql`; verified 12 rows. Re-ran the script; count stayed at 12. Attempted an invalid ZIP insert; rejected and count stayed at 12. | Pass |
