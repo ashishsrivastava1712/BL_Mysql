@@ -19,6 +19,7 @@ database unless the script itself creates/selects it.
 | 9 | `UC9_add_addressbook_name_type.sql` | Add AddressBook name/type and link contacts. |
 | 10 | `UC10_count_by_addressbook_type.sql` | Count contacts by AddressBook type. |
 | 11 | `UC11_contact_addressbook_many_to_many.sql` | Create the many-to-many membership table. |
+| 12 | [ER diagram and normalization](../er-diagram/README.md) | Documentation only (no SQL script). |
 
 ---
 
@@ -302,3 +303,20 @@ adds Aarav Sharma to both the Family and Friends address books.
 - `OldColumnStillPresent` is `0`.
 - Re-inserting the same `(ContactID, AddressBookID)` pair fails with error
   `1062` and does not create a duplicate.
+
+---
+
+## UC12 - Normalization and ER Diagram
+
+**Output:** [`er-diagram/ER_Diagram.md`](../er-diagram/ER_Diagram.md),
+[`er-diagram/AddressBook_ER_Diagram.png`](../er-diagram/AddressBook_ER_Diagram.png),
+and [`er-diagram/Normalization.md`](../er-diagram/Normalization.md).
+
+No database change is required. The review documents:
+
+- The three final entities and their attributes.
+- First, second, and third normal form, plus BCNF.
+- Composite attributes (name, address) and the multivalued membership resolved
+  by `ContactAddressBook`.
+- Primary keys, foreign keys, relationship cardinalities, and cascade rules.
+- The final schema image and Mermaid source.

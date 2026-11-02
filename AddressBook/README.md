@@ -29,6 +29,24 @@ AddressBook/
 
 No Java, JDBC, Spring Boot, C#, or ADO.NET code is used.
 
+## Final Database Structure
+
+```text
+AddressBookService
+├── Contacts            (ContactID PK)
+├── AddressBook         (AddressBookID PK)
+└── ContactAddressBook  (ContactID, AddressBookID) composite PK
+```
+
+`ContactAddressBook` resolves the many-to-many relationship: a contact can belong
+to several address books, and an address book can contain many contacts.
+
+The final ER diagram is in
+[`er-diagram/AddressBook_ER_Diagram.png`](er-diagram/AddressBook_ER_Diagram.png).
+See [`er-diagram/ER_Diagram.md`](er-diagram/ER_Diagram.md) and
+[`er-diagram/Normalization.md`](er-diagram/Normalization.md) for keys,
+cardinalities, and normalization analysis.
+
 ## Running the Scripts
 
 Run the scripts in the order documented in [`sql/README.md`](sql/README.md).
@@ -54,7 +72,7 @@ mysql -u root -p < sql/UC1_create_database.sql
 | UC9 - AddressBook name and type | `feature/UC9` | Complete |
 | UC10 - Count by AddressBook type | `feature/UC10` | Complete |
 | UC11 - Many-to-many membership | `feature/UC11` | Complete |
-| UC12 - Normalization and ER diagram | `feature/UC12` | Pending |
+| UC12 - Normalization and ER diagram | `feature/UC12` | Complete |
 | UC13 - Verify queries on final schema | `feature/UC13` | Pending |
 
 ## Testing Record
@@ -74,3 +92,4 @@ Tests are executed against MySQL 8.0 before a use case is merged into `develop`.
 | UC9 | Ran `UC9_add_addressbook_name_type.sql`. Verified the AddressBook table, three address book types, the new foreign key, all eleven assignments, and zero unassigned contacts. | Pass |
 | UC10 | Ran `UC10_count_by_addressbook_type.sql`. Verified Family 4, Friends 4, Professional 3, and a type-count sum of 11. | Pass |
 | UC11 | Ran `UC11_contact_addressbook_many_to_many.sql`. Verified composite key and foreign keys, 12 memberships for 11 contacts, Aarav in Family and Friends, removed old column, and duplicate membership rejected. | Pass |
+| UC12 | Reviewed the final three-table schema. Verified the PNG/SVG ER diagram, Mermaid source, normalization analysis, keys, and relationship cardinalities against the live schema. | Pass |
