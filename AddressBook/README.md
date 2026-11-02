@@ -44,7 +44,7 @@ mysql -u root -p < sql/UC1_create_database.sql
 | Use Case | Feature Branch | Status |
 | --- | --- | --- |
 | UC1 - Create AddressBook database | `feature/UC1` | Complete |
-| UC2 - Create Contacts table | `feature/UC2` | Pending |
+| UC2 - Create Contacts table | `feature/UC2` | Complete |
 | UC3 - Insert contacts | `feature/UC3` | Pending |
 | UC4 - Edit contact | `feature/UC4` | Pending |
 | UC5 - Delete contact | `feature/UC5` | Pending |
@@ -64,3 +64,4 @@ Tests are executed against MySQL 8.0 before a use case is merged into `develop`.
 | Use Case | Test Performed | Result |
 | --- | --- | --- |
 | UC1 | Ran `UC1_create_database.sql` on a clean MySQL 8.0 instance. Verified `DATABASE()`, `information_schema.SCHEMATA`, and `SHOW DATABASES LIKE 'AddressBookService'`. | Pass |
+| UC2 | Ran `UC2_create_contacts_table.sql`. Verified table, columns, keys, and constraints with `SHOW CREATE TABLE`. Tested invalid ZIP, phone, and email values; each was rejected. | Pass |
