@@ -50,7 +50,7 @@ mysql -u root -p < sql/UC1_create_database.sql
 | UC5 - Delete contact | `feature/UC5` | Complete |
 | UC6 - Retrieve by city/state | `feature/UC6` | Complete |
 | UC7 - Count by city/state | `feature/UC7` | Complete |
-| UC8 - Sort by name | `feature/UC8` | Pending |
+| UC8 - Sort by name | `feature/UC8` | Complete |
 | UC9 - AddressBook name and type | `feature/UC9` | Pending |
 | UC10 - Count by AddressBook type | `feature/UC10` | Pending |
 | UC11 - Many-to-many membership | `feature/UC11` | Pending |
@@ -70,3 +70,4 @@ Tests are executed against MySQL 8.0 before a use case is merged into `develop`.
 | UC5 | Ran `UC5_delete_contact.sql`. Verified 1 row deleted, 11 records remained, an unrelated contact still existed, and the deleted contact was absent. Missing-contact delete returned 0. | Pass |
 | UC6 | Ran `UC6_retrieve_by_city_state.sql`. Verified Pune (2), Bengaluru (2), Maharashtra (3), Karnataka (2), Haryana (1), and empty results for Chennai and Delhi. | Pass |
 | UC7 | Ran `UC7_count_by_city_state.sql`. Verified total 11, city counts summing to 11, state counts, and the `HAVING` result (Bengaluru and Pune). | Pass |
+| UC8 | Ran `UC8_sort_by_name.sql`. Verified alphabetical output for Pune, Bengaluru, and Mumbai, plus an empty result for Chennai. | Pass |
