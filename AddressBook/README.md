@@ -48,7 +48,7 @@ mysql -u root -p < sql/UC1_create_database.sql
 | UC3 - Insert contacts | `feature/UC3` | Complete |
 | UC4 - Edit contact | `feature/UC4` | Complete |
 | UC5 - Delete contact | `feature/UC5` | Complete |
-| UC6 - Retrieve by city/state | `feature/UC6` | Pending |
+| UC6 - Retrieve by city/state | `feature/UC6` | Complete |
 | UC7 - Count by city/state | `feature/UC7` | Pending |
 | UC8 - Sort by name | `feature/UC8` | Pending |
 | UC9 - AddressBook name and type | `feature/UC9` | Pending |
@@ -68,3 +68,4 @@ Tests are executed against MySQL 8.0 before a use case is merged into `develop`.
 | UC3 | Ran `UC3_insert_contacts.sql`; verified 12 rows. Re-ran the script; count stayed at 12. Attempted an invalid ZIP insert; rejected and count stayed at 12. | Pass |
 | UC4 | Ran `UC4_update_contact.sql`. Verified 1 row updated with all six editable fields changed. Missing-contact test returned 0 rows and total count stayed at 12. | Pass |
 | UC5 | Ran `UC5_delete_contact.sql`. Verified 1 row deleted, 11 records remained, an unrelated contact still existed, and the deleted contact was absent. Missing-contact delete returned 0. | Pass |
+| UC6 | Ran `UC6_retrieve_by_city_state.sql`. Verified Pune (2), Bengaluru (2), Maharashtra (3), Karnataka (2), Haryana (1), and empty results for Chennai and Delhi. | Pass |

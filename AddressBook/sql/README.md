@@ -13,6 +13,7 @@ database unless the script itself creates/selects it.
 | 3 | `UC3_insert_contacts.sql` | Insert twelve sample contacts. |
 | 4 | `UC4_update_contact.sql` | Edit a contact by name. |
 | 5 | `UC5_delete_contact.sql` | Delete a contact by name. |
+| 6 | `UC6_retrieve_by_city_state.sql` | Retrieve contacts by city or state. |
 
 ---
 
@@ -148,3 +149,24 @@ removed. The final dataset contains eleven contacts after this script.
 - `UnrelatedContactStillPresent` is `1`.
 - `DeletedContactStillPresent` is `0`.
 - Deleting a missing person returns `MissingContactRowsDeleted = 0`.
+
+---
+
+## UC6 - Retrieve Contacts by City or State
+
+**Script:** `UC6_retrieve_by_city_state.sql`
+
+Runs separate `SELECT` statements filtered by `City` and by `State`. The city
+and state values are stored in session variables so they are easy to change.
+
+### Tested Values
+
+| Filter | Value | Expected rows |
+| --- | --- | --- |
+| City | Pune | Aarav Sharma, Meera Joshi |
+| City | Bengaluru | Kavya Nair, Saanvi Reddy |
+| City | Chennai | None (deleted in UC5) |
+| State | Maharashtra | Aarav Sharma, Meera Joshi, Rohan Mehta |
+| State | Karnataka | Kavya Nair, Saanvi Reddy |
+| State | Delhi | None (Vivaan Gupta moved in UC4) |
+| State | Haryana | Vivaan Gupta |
