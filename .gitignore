@@ -1,0 +1,9 @@
+# Local class material and generated files
+*.pdf
+*.tmp
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
