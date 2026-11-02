@@ -17,6 +17,7 @@ database unless the script itself creates/selects it.
 | 7 | `UC7_count_by_city_state.sql` | Count contacts by city and state. |
 | 8 | `UC8_sort_by_name.sql` | Sort a city's contacts by name. |
 | 9 | `UC9_add_addressbook_name_type.sql` | Add AddressBook name/type and link contacts. |
+| 10 | `UC10_count_by_addressbook_type.sql` | Count contacts by AddressBook type. |
 
 ---
 
@@ -246,3 +247,24 @@ replaces it with a many-to-many junction table.
 - `Contacts.AddressBookID` exists with a foreign key to `AddressBook`.
 - All eleven contacts are assigned exactly once.
 - `UnassignedContacts` is `0`.
+
+---
+
+## UC10 - Count Contacts by AddressBook Type
+
+**Script:** `UC10_count_by_addressbook_type.sql`
+
+Joins `AddressBook` to `Contacts` and groups by address book and by address book
+type. `LEFT JOIN` keeps address books that have no contacts in the result.
+
+### Expected Result
+
+| AddressBook | Type | ContactCount |
+| --- | --- | --- |
+| Family Book | Family | 4 |
+| Friends Book | Friends | 4 |
+| Professional Book | Professional | 3 |
+
+- `SumOfTypeCounts` is `11`.
+- The query uses the UC9 `Contacts.AddressBookID` column. The final many-to-many
+  version of this report is provided in UC13.
